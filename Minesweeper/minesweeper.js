@@ -13,6 +13,11 @@ function createBoard(mode = 8) {
 const randomizeMines = mode => {
   // function to put in mines at random
   // certain number of mines based on mode
+  const numberOfMines = Math.floor(mode * 1.25);
+  for (let i = 0; i < numberOfMines; i++) {
+    // specific div will have probability of having mines
+    // if a mine is added, decrement number of mines
+  }
 }
 // Then find a way to set in numbers based on adjacent mines
 
