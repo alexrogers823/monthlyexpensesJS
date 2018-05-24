@@ -20,6 +20,10 @@ const randomizeMines = mode => {
   }
 }
 // Then find a way to set in numbers based on adjacent mines
+// if (touching a mine) {
+//   count how many mines it is touching
+//   then put in number on the square
+// }
 
 $(document).ready(() => {
   createBoard();
