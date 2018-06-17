@@ -32,6 +32,10 @@ const db = mongoose.connection; */
 
 // const dataset = JSON.parse("month_expenses_2016.json");
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+// document.querySelector('monthTitle').innerHTML = months[0] why isn't this working
+
 // Once actual data is imported, start with this and indent everything else
 d3.json("month_expenses_2016.json", data => {
   // console.log(data);
