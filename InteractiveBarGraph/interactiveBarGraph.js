@@ -12,7 +12,12 @@ const app = express();
 
 app.get('/', (req, res) => {
   // res.send('<h1>I love treehouse</h1>');
-  res.send(data.month1);
+  // res.send(data.month1);
+  res.send(
+const svgContainer = d3.select("body").append("svg")
+.attr("width", 1000)
+.attr("height", 550)
+.append("g");)
 });
 
 app.listen(3000, () => {
