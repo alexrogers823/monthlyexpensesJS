@@ -8,9 +8,9 @@
 const express = require('express');
 const { data } = require('./month_expenses_2016.json');
 
-const app = express();
+const router = express().Router(); //allows for HTML rendering
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   // res.send('<h1>I love treehouse</h1>');
   // res.send(data.month1);
   res.send(
@@ -20,7 +20,7 @@ const svgContainer = d3.select("body").append("svg")
 .append("g");)
 });
 
-app.listen(3000, () => {
+router.listen(3000, () => {
   console.log('The application is running on localhost:3000')
 });
 
