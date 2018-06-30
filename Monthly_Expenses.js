@@ -1,4 +1,5 @@
 //For resetting formatting, go to Skeleton
+// probably need to do this on the backend, for GET and POST requests
 
 const table = document.getElementById("Jan");
 
@@ -47,6 +48,8 @@ function setNextLine() {
 //If new categories are added
 function addNewCategory () {
   //something here reacting to added category
+  // probably will be a POST request
+
 }
 
 addExpense();
