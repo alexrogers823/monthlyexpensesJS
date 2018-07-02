@@ -1,14 +1,6 @@
-const express = require('express');
-// const { data } = require('./month_expenses_2016.json');
+const http = require("http");
 
-const app = express(); //allows for HTML rendering
-
-app.set('view engine', 'pug');
-
-app.get('/', (req, res) => {
-  res.render('interactiveBarGraph');
-});
-
-app.listen(3000, () => {
-  console.log('The application is running on localhost:3000')
-});
+http.createServer((req, res) => {
+  // connect it to the main page here
+}).listen(3000, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:3000');
