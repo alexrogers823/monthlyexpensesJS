@@ -21,9 +21,101 @@
   </style>
 </head>
 <body>
-  <p id="monthTitle">Is this working?</p>
+  <p id="monthTitle">Does this work?</p>
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="interactiveBarGraph.js"></script>
+  <!-- <script src="interactiveBarGraph.js"></script> -->
+  <script>
+    // const data = [
+    //   {exp: "Rent", cost: 10},
+    //   {exp: "Apparel", cost: 25},
+    //   {exp: "Utilities", cost: 15},
+    //   {exp: "Groceries", cost: 40},
+    //   {exp: "Subscriptions", cost: 25},
+    //   {exp: "Travel", cost: 15},
+    //   {exp: "Vehicle", cost: 30},
+    //   {exp: "Other", cost: 35}
+    // ];
+    // const data = require("./month_expenses_2016.json");
+    // const data = {{}};
+    const data = [
+      // {
+      //   "month1": {
+      //     "_id":{"$oid":"5b1da795199fcd971f88e586"},
+      //     "Expenses":[
+          {"Expense":"mail","Cost":5.75,"Category":"Transport","Notes":"idk"},
+          {"Expense":"chipotle","Cost":6.97,"Category":"Res","Notes":"burrito bowl"},
+          {"Expense":"rent","Cost":800,"Category":"Rent","Notes":"clairmont reserve"},
+          {"Expense":"noodles","Cost":9.42,"Category":"Res","Notes":"no"},
+          {"Expense":"mcdonalds","Cost":6.84,"Category":"Res","Notes":null},
+          {"Expense":"chips","Cost":4.87,"Category":"Snacks","Notes":null},
+          {"Expense":"chick fil a","Cost":8.31,"Category":"Res","Notes":null},
+          {"Expense":"mcdonalds","Cost":3.59,"Category":"Res","Notes":"case competition food"},
+          {"Expense":"dunkin","Cost":4.41,"Category":"Res","Notes":null},
+          {"Expense":"burger","Cost":6.68,"Category":"Res","Notes":"marlows (alpha)"},
+          {"Expense":"mcdonalds","Cost":6.2,"Category":"Res","Notes":null},
+          {"Expense":"transfer","Cost":40,"Category":"Credit Card","Notes":"payoff"},
+          {"Expense":"shea butter","Cost":7.8,"Category":"Supplies","Notes":"for the hair"},
+          {"Expense":"ross","Cost":7.48,"Category":"Clothes","Notes":"tie?"},
+          {"Expense":"umbrella","Cost":5.32,"Category":"Rain","Notes":null},
+          {"Expense":"fedEx","Cost":6.41,"Category":"Mail","Notes":"?"},
+          {"Expense":"N4L dinner","Cost":16.05,"Category":"Res","Notes":"ethopian"},
+          {"Expense":"racetrac?","Cost":5.73,"Category":"Other","Notes":"idk what this is"},
+          {"Expense":"spotify","Cost":10.72,"Category":"Subscription","Notes":null},
+          {"Expense":"cc interest","Cost":13.24,"Category":"Interest","Notes":null}
+      //     ],
+      //     "Month":"1"
+      //   }
+      // }
+    ]
+
+    const dataset = data[0].month1;
+
+
+    // d3.json("./month_expenses_2016.json", data => {
+    //   const svgContainer = d3.select("body").append("svg")
+    //   .attr("width", 1000)
+    //   .attr("height", 550)
+    //   // .append("g");
+    //
+    //   const marginSpace = 10;
+    //
+    //   // Rectangles using data
+    //   const otherRectangles = svgContainer.selectAll(".bar")
+    //   .data(data)
+    //   .enter()
+    //   .append("rect")
+    //   .attr("class", "bar")
+    //   .attr("x", (d, i) => (i * 60) + 130)
+    //   .attr("y", d => 550 - marginSpace - (d.month1.Expenses[0].Cost * 10))
+    //   // .attr("y", 400)
+    //   .attr("width", 50)
+    //   .attr("height", d => d.month1.Expenses[0].Cost * 10);
+    //   // .attr("height", 100);
+    // });
+
+    // Without d3.json import
+    const svgContainer = d3.select("body").append("svg")
+    .attr("width", 1000)
+    .attr("height", 550)
+    // .append("g");
+
+    const marginSpace = 10;
+
+    // Rectangles using data
+    const otherRectangles = svgContainer.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", (d, i) => (i * 40) + 130)
+    .attr("y", d => (d.Cost > 100) ? 550 - marginSpace - (d.Cost/2) : 550 - marginSpace - (d.Cost * 10))
+    // .attr("y", 400)
+    .attr("width", 30)
+    .attr("height", d => (d.Cost > 100) ? d.Cost/2 : d.Cost * 10);
+    // .attr("height", 100);
+
+
+  </script>
 </body>
 </html>
