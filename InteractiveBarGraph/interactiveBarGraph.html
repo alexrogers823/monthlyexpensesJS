@@ -10,6 +10,15 @@
       fill: green;
     }
 
+    .bar:hover {
+      fill: red;
+    }
+
+    .yAxis {
+      font-size: 10px;
+      /* padding: 1px; */
+    }
+
     svg {
       background-color: #cdcdcd;
       border: 3px solid blue;
@@ -69,6 +78,47 @@
       // }
     ]
 
+    const data2 = [
+      // "month2": {
+      //   "_id":{"$oid":"5b1db58c199fcd97b0fd3bc7"},
+      //   "Expenses":[
+          {"Category":"Dry Cleaning","Notes":"kims","Cost":10.5,"Expense":"dry cleaning"},
+          {"Category":"Interest","Notes":null,"Cost":12.59,"Expense":"interest charge"},
+          {"Category":"Spotify","Notes":"music!","Cost":10.72,"Expense":"spotify"},
+          {"Category":"Parking","Notes":"for 71","Cost":2,"Expense":"parking"},
+          {"Category":"Res","Notes":null,"Cost":6.96,"Expense":"chick fil a"},
+          {"Category":"Other","Notes":null,"Cost":5.01,"Expense":"pilot?"},
+          {"Category":"Rent","Notes":"clairmont reserve","Cost":800,"Expense":"rent"},
+          {"Category":"Res","Notes":"no","Cost":2.88,"Expense":"mcd"},
+          {"Category":"Supplies","Notes":null,"Cost":32.39,"Expense":"sick stuff"},
+          {"Category":"Clothes","Notes":null,"Cost":5.62,"Expense":"macys"},
+          {"Category":"Res","Notes":"2.91","Cost":2.91,"Expense":"fast food"},
+          {"Category":"Res","Notes":null,"Cost":4.48,"Expense":"mcd"},
+          {"Category":"Res","Notes":"lot of food lol","Cost":6.96,"Expense":"chipotle"},
+          {"Category":"Res","Notes":null,"Cost":4.21,"Expense":"chick fil a"},
+          {"Category":"Tech","Notes":"still didn't help","Cost":43.15,"Expense":"laptop sleeve"},
+          {"Category":"Res","Notes":null,"Cost":3.99,"Expense":"fast food again"},
+          {"Category":"Res","Notes":"ole restaurant?","Cost":26.05,"Expense":"v-day food"},
+          {"Category":"Res","Notes":null,"Cost":9.27,"Expense":"mcd"},
+          {"Category":"Res","Notes":null,"Cost":5.41,"Expense":"subway"},
+          {"Category":"Groceries","Notes":"publix","Cost":5.77,"Expense":"wings"},
+          {"Category":"Res","Notes":"lots of it","Cost":9.9,"Expense":"mcd"},
+          {"Category":"Credit Card","Notes":null,"Cost":50,"Expense":"cc payment"},
+          {"Category":"Groceries","Notes":null,"Cost":7.42,"Expense":"publix"},
+          {"Category":"Clothes","Notes":"down payment","Cost":20,"Expense":"recital tax pt 1"},
+          {"Category":"Res","Notes":null,"Cost":3.83,"Expense":"suno"},
+          {"Category":"Gas","Notes":"gas n food","Cost":22.58,"Expense":"gas money"},
+          {"Category":"Other","Notes":"idk wtf this is","Cost":72.74,"Expense":"???"},
+          {"Category":"Graduation","Notes":"pictures","Cost":117.18,"Expense":"grad pictures"},
+          {"Category":"Alpha","Notes":"venmo to SC","Cost":150,"Expense":"chapter dues"},
+          {"Category":"Res","Notes":null,"Cost":13.07,"Expense":"waffle house"},
+          {"Category":"Atm","Notes":"at north decatur","Cost":20,"Expense":"atm"},
+          {"Category":"Movies","Notes":"with abdella","Cost":21.39,"Expense":"deadpool"},
+          {"Category":"Snacks","Notes":"at qt","Cost":2.66,"Expense":"vitamin water"}
+        // ],
+        // "Month":"2"},
+    ]
+
     const dataset = data[0].month1;
 
 
@@ -94,26 +144,57 @@
     //   // .attr("height", 100);
     // });
 
+    const dataArray = [20, 40, 50, 60];
+
+    // Scales and Axis (eventually use band scale for y-axis)
+    const width = 1000;
+    const height = 500;
+
+    const heightScale = d3.scale.linear()
+      .domain([0, 800])
+      .range([0, height]);
+
+    const reverseHeightScale = d3.scale.linear()
+      .domain([0, 800])
+      .range([height, 0]);
+
+    const axis = d3.svg.axis()
+      .ticks(20)
+      .scale(reverseHeightScale)
+      .orient("left");
+
     // Without d3.json import
     const svgContainer = d3.select("body").append("svg")
-    .attr("width", 1000)
-    .attr("height", 550)
-    // .append("g");
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(50, -2)");
+    // .call(axis);
 
     const marginSpace = 10;
 
+
+
     // Rectangles using data
     const otherRectangles = svgContainer.selectAll(".bar")
-    .data(data)
+    .data(data2)
     .enter()
     .append("rect")
     .attr("class", "bar")
-    .attr("x", (d, i) => (i * 40) + 130)
-    .attr("y", d => (d.Cost > 100) ? 550 - marginSpace - (d.Cost/2) : 550 - marginSpace - (d.Cost * 10))
+    .attr("x", (d, i) => i * 20)
+    // .attr("y", d => (d.Cost > 100) ? height - marginSpace - (d.Cost/2) : height - marginSpace - (d.Cost * 10))
+    .attr("y", d => height - heightScale(d.Cost))
     // .attr("y", 400)
-    .attr("width", 30)
-    .attr("height", d => (d.Cost > 100) ? d.Cost/2 : d.Cost * 10);
+    .attr("width", 10)
+    // .attr("height", d => (d.Cost > 100) ? d.Cost/2 : d.Cost * 10);
     // .attr("height", 100);
+    .attr("height", d => heightScale(d.Cost));
+
+    // Calling the axis
+    svgContainer.append("g")
+      .attr("class", "yAxis")
+      .attr("transform", `translate(-10, 0)`)
+      .call(axis);
 
 
   </script>
