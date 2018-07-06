@@ -11,7 +11,7 @@
     }
 
     .bar:hover {
-      fill: red;
+      fill: blue;
     }
 
     .yAxis {
@@ -47,7 +47,7 @@
     // ];
     // const data = require("./month_expenses_2016.json");
     // const data = {{}};
-    const data = [
+    const data1 = [
       // {
       //   "month1": {
       //     "_id":{"$oid":"5b1da795199fcd971f88e586"},
@@ -119,7 +119,7 @@
         // "Month":"2"},
     ]
 
-    const dataset = data[0].month1;
+    // const dataset = data[0].month1;
 
 
     // d3.json("./month_expenses_2016.json", data => {
@@ -163,6 +163,12 @@
       .scale(reverseHeightScale)
       .orient("left");
 
+    // set variable for smooth transition
+    const t = d3.transition().duration(1000);
+
+
+
+
     // Without d3.json import
     const svgContainer = d3.select("body").append("svg")
     .attr("width", width)
@@ -174,27 +180,62 @@
     const marginSpace = 10;
 
 
+    // Set function to update with new data
+    function update(data) {
+      // Rectangles using data
+      let otherRectangles = svgContainer.selectAll(".bar")
+      .data(data);
 
-    // Rectangles using data
-    const otherRectangles = svgContainer.selectAll(".bar")
-    .data(data2)
-    .enter()
-    .append("rect")
-    .attr("class", "bar")
-    .attr("x", (d, i) => i * 20)
-    // .attr("y", d => (d.Cost > 100) ? height - marginSpace - (d.Cost/2) : height - marginSpace - (d.Cost * 10))
-    .attr("y", d => height - heightScale(d.Cost))
-    // .attr("y", 400)
-    .attr("width", 10)
-    // .attr("height", d => (d.Cost > 100) ? d.Cost/2 : d.Cost * 10);
-    // .attr("height", 100);
-    .attr("height", d => heightScale(d.Cost));
+      otherRectangles.exit().transition(t)
+      .attr("fill-opacity", 0.1)
+      .attr("height", 0)
+      .remove();
+
+      // Updating old elements that are present in new data
+      otherRectangles.transition(t)
+      .attr("x", (d, i) => i * 20)
+      // .attr("y", d => (d.Cost > 100) ? height - marginSpace - (d.Cost/2) : height - marginSpace - (d.Cost * 10))
+      .attr("y", d => height - heightScale(d.Cost))
+      // .attr("y", 400)
+      .attr("width", 10)
+      // .attr("height", d => (d.Cost > 100) ? d.Cost/2 : d.Cost * 10);
+      // .attr("height", 100);
+      .attr("height", d => heightScale(d.Cost));
+
+      otherRectangles.enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d, i) => i * 20)
+      // .attr("y", d => (d.Cost > 100) ? height - marginSpace - (d.Cost/2) : height - marginSpace - (d.Cost * 10))
+      .attr("y", d => height - heightScale(d.Cost))
+      // .attr("y", 400)
+      .attr("width", 10)
+      // .attr("height", d => (d.Cost > 100) ? d.Cost/2 : d.Cost * 10);
+      // .attr("height", 100);
+      .attr("height", 0)
+      .attr("fill-opacity", 0.1)
+      .transition(t)
+      .attr("fill-opacity", 1)
+      .attr("height", d => heightScale(d.Cost))
+    }
+
+    // Changing the data each second
+    let flag = true;
+    setInterval(() => {
+      dataset = flag ? data1 : data2;
+      update(dataset);
+      flag = !flag;
+    }, 1500);
+
+    update(data1);
+
 
     // Calling the axis
     svgContainer.append("g")
       .attr("class", "yAxis")
       .attr("transform", `translate(-10, 0)`)
       .call(axis);
+
 
 
   </script>
