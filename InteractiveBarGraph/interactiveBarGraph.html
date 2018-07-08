@@ -169,11 +169,19 @@
       .scale(reverseHeightScale)
       .orient("left");
 
+    const categoryAxis = d3.svg.axis()
+      .ticks(22)
+      .scale(heightScale)
+      .orient("bottom");
+
     // set variable for smooth transition
     const t = d3.transition().duration(750);
 
-
-
+    // Category labels. Find a way to add directly from month expenses data
+    const categoryLabels = ["Rent", "Utilities", "Phone", "Apparel", "Supplies", "Technology", "Services",
+    "Health/Gym", "Haircut", "Groceries", "Other Food", "Gas & Parking", "Insurance",
+    "Bank & Credit Card", "Student Loans", "Vehicle Payments", "Entertainment",
+    "Subscriptions", "Travel", "Public Transportation", "Special/Seasonal", "Other"]
 
     // Without d3.json import
     const svgContainer = d3.select("body").append("svg")
@@ -188,13 +196,11 @@
     function processData(data, number) {
       let obj = data[0][`month${number}`].Expenses;
       let newDataSet = [];
-      // let test = [];
 
       for (let i = 0; i < obj.length; i++) {
         newDataSet.push(obj[i]);
-        // test.push(obj[i].Category);
       }
-      // console.log(test);
+
 
       return newDataSet;
     }
@@ -260,6 +266,12 @@
       .attr("class", "yAxis")
       .attr("transform", `translate(-10, 0)`)
       .call(axis);
+
+    // Calling the categorical axis
+    // svgContainer.append("g")
+    //   .attr("class", "categoryAxis")
+    //   .attr("transform", `translate(-10, 450)`)
+    //   .call(categoryAxis);
 
 
 
