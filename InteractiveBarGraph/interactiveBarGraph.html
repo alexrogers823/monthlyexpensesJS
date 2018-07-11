@@ -184,7 +184,7 @@
     const categoryAxis = d3.svg.axis()
       .ticks(categoryLabels.length)
       .scale(categoryScale)
-      // .tickValues([10, 20, 30, 40, 50])
+      // .tickFormat(d => return d.name) work on this
       .orient("bottom");
 
     // set variable for smooth transition
@@ -280,6 +280,11 @@
       .attr("class", "categoryAxis")
       .attr("transform", `translate(-16, 475)`)
       .call(categoryAxis);
+
+    // Name of current month
+    // svgContainer.append("g")
+    //   .attr("class", "title")
+    //
 
 
 
