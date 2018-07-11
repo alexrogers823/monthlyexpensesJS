@@ -21,7 +21,9 @@
 
     svg {
       background-color: #cdcdcd;
-      border: 3px solid blue;
+      border-top: 3px solid blue;
+      border-left: 3px solid blue;
+      border-right: 3px solid blue;
     }
 
     svg rect {
@@ -152,6 +154,12 @@
     //   // .attr("height", 100);
     // });
 
+    // Category labels. Find a way to add directly from month expenses data
+    const categoryLabels = ["Rent", "Utilities", "Phone", "Apparel", "Supplies", "Technology", "Services",
+    "Health/Gym", "Haircut", "Groceries", "Other Food", "Gas & Parking", "Insurance",
+    "Bank & Credit Card", "Student Loans", "Vehicle Payments", "Entertainment",
+    "Subscriptions", "Travel", "Public Transportation", "Special/Seasonal", "Other"]
+
     // Scales and Axis (eventually use band scale for y-axis)
     const width = 1000;
     const height = 500;
@@ -164,31 +172,31 @@
       .domain([0, 800])
       .range([height, 0]);
 
+    const categoryScale = d3.scale.linear()
+      .domain([0, width])
+      .range([0, width]);
+
     const axis = d3.svg.axis()
       .ticks(20)
       .scale(reverseHeightScale)
       .orient("left");
 
     const categoryAxis = d3.svg.axis()
-      .ticks(22)
-      .scale(heightScale)
+      .ticks(categoryLabels.length)
+      .scale(categoryScale)
+      // .tickValues([10, 20, 30, 40, 50])
       .orient("bottom");
 
     // set variable for smooth transition
     const t = d3.transition().duration(750);
 
-    // Category labels. Find a way to add directly from month expenses data
-    const categoryLabels = ["Rent", "Utilities", "Phone", "Apparel", "Supplies", "Technology", "Services",
-    "Health/Gym", "Haircut", "Groceries", "Other Food", "Gas & Parking", "Insurance",
-    "Bank & Credit Card", "Student Loans", "Vehicle Payments", "Entertainment",
-    "Subscriptions", "Travel", "Public Transportation", "Special/Seasonal", "Other"]
 
     // Without d3.json import
     const svgContainer = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
     .append("g")
-    .attr("transform", "translate(50, -2)");
+    .attr("transform", "translate(50, -10)");
     // .call(axis);
 
     const marginSpace = 10;
@@ -264,14 +272,14 @@
     // Calling the axis
     svgContainer.append("g")
       .attr("class", "yAxis")
-      .attr("transform", `translate(-10, 0)`)
+      .attr("transform", `translate(-10, 3)`)
       .call(axis);
 
     // Calling the categorical axis
-    // svgContainer.append("g")
-    //   .attr("class", "categoryAxis")
-    //   .attr("transform", `translate(-10, 450)`)
-    //   .call(categoryAxis);
+    svgContainer.append("g")
+      .attr("class", "categoryAxis")
+      .attr("transform", `translate(-16, 475)`)
+      .call(categoryAxis);
 
 
 
