@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Interactive Bar Graph</title>
   <style>
     .bar {
       fill: green;
@@ -16,14 +16,15 @@
 
     .yAxis {
       font-size: 10px;
-      /* padding: 1px; */
+    }
+
+    .categoryAxis {
+      font-size: 10px;
     }
 
     svg {
       background-color: #cdcdcd;
-      border-top: 3px solid blue;
-      border-left: 3px solid blue;
-      border-right: 3px solid blue;
+      border: 3px solid blue;
     }
 
     svg rect {
@@ -161,8 +162,8 @@
     "Subscriptions", "Travel", "Public Transportation", "Special/Seasonal", "Other"]
 
     // Scales and Axis (eventually use band scale for y-axis)
-    const width = 1000;
-    const height = 500;
+    const width = 1100;
+    const height = 550;
 
     const heightScale = d3.scale.linear()
       .domain([0, 800])
@@ -173,18 +174,23 @@
       .range([height, 0]);
 
     const categoryScale = d3.scale.linear()
-      .domain([0, width])
+      .domain([0, width+100])
       .range([0, width]);
 
     const axis = d3.svg.axis()
       .ticks(20)
+      .tickSize(5)
+      .tickPadding(5)
       .scale(reverseHeightScale)
       .orient("left");
 
     const categoryAxis = d3.svg.axis()
       .ticks(categoryLabels.length)
+      .tickSize(2)
       .scale(categoryScale)
-      // .tickFormat(d => return d.name) work on this
+      .tickFormat((d, i) => {
+        return categoryLabels[i];
+      })
       .orient("bottom");
 
     // set variable for smooth transition
@@ -275,11 +281,14 @@
       .attr("transform", `translate(-10, 3)`)
       .call(axis);
 
+
     // Calling the categorical axis
     svgContainer.append("g")
       .attr("class", "categoryAxis")
-      .attr("transform", `translate(-16, 475)`)
-      .call(categoryAxis);
+      .attr("transform", `translate(-16, 500)`)
+      .call(categoryAxis)
+      .selectAll("text")
+      .attr("transform", "rotate(45)");
 
     // Name of current month
     // svgContainer.append("g")
