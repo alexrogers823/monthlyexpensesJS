@@ -230,22 +230,27 @@
     function processData(data, number) {
       let obj = data[0][`month${number}`].Expenses;
       let newDataSet = [];
-      let otherValue = 0;
+      let totalValue = 0, totalExpenses = 0;
 
       for (let prop in categoryLabels) {
         let value = 0;
         for (let i = 0; i < obj.length; i++) {
+          // Using only one property so that totalExpenses variable is done correctly
+          if (prop === "Rent") {
+            totalExpenses += obj[i].Cost;
+          }
           if (categoryLabels[prop] !== "Other" && (categoryLabels[prop].includes(obj[i].Category) || obj[i].Category === prop)) {
             value += obj[i].Cost;
+            totalValue += obj[i].Cost;
           }
         }
-        newDataSet.push({Expense: `${prop}`, Cost: value});
+        newDataSet.push({Expense: prop, Cost: value});
       }
 
-      newDataSet[newDataSet.length-1] = {Expense: "Other", Cost: otherValue};
-      // Find a way to calculate other
 
-      console.log(newDataSet);
+      newDataSet[newDataSet.length-1] = {Expense: "Other", Cost: totalExpenses - totalValue};
+
+      // console.log(newDataSet[newDataSet.length-1]);
       return newDataSet;
     }
 
