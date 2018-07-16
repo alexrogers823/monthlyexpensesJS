@@ -33,7 +33,7 @@
   </style>
 </head>
 <body>
-  <p id="monthTitle">Does this work?</p>
+  <p id="monthTitle">Expenses by Month</p>
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <!-- <script src="interactiveBarGraph.js"></script> -->
@@ -184,6 +184,8 @@
     // Scales and Axis (eventually use band scale for y-axis)
     const width = 1100;
     const height = 550;
+    const xDistance = 40;
+    const barWidth = 30;
 
     const heightScale = d3.scale.linear()
       .domain([0, 800])
@@ -250,7 +252,7 @@
 
       newDataSet[newDataSet.length-1] = {Expense: "Other", Cost: totalExpenses - totalValue};
 
-      // console.log(newDataSet[newDataSet.length-1]);
+      // console.log(newDataSet);
       return newDataSet;
     }
 
@@ -268,11 +270,11 @@
 
       // Updating old elements that are present in new data
       otherRectangles.transition(t)
-      .attr("x", (d, i) => i * 20)
+      .attr("x", (d, i) => i * xDistance)
       // .attr("y", d => (d.Cost > 100) ? height - marginSpace - (d.Cost/2) : height - marginSpace - (d.Cost * 10))
       .attr("y", (d, i) => height - heightScale(d.Cost))
       // .attr("y", 400)
-      .attr("width", 10)
+      .attr("width", barWidth)
       // .attr("height", d => (d.month1.Expensesst > 100) ? d.month1.Expensesst/2 : d.month1.Expensesst * 10);
       // .attr("height", 100);
       .attr("height", (d, i) => heightScale(d.Cost));
@@ -280,11 +282,11 @@
       otherRectangles.enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", (d, i) => i * 20)
+      .attr("x", (d, i) => i * xDistance)
       // .attr("y", d => (d.month1.Expensesst > 100) ? height - marginSpace - (d.month1.Expensesst/2) : height - marginSpace - (d.month1.Expensesst * 10))
       .attr("y", (d, i) => height - heightScale(d.Cost))
       // .attr("y", 400)
-      .attr("width", 10)
+      .attr("width", barWidth)
       // .attr("height", d => (d.month1.Expensesst > 100) ? d.month1.Expensesst/2 : d.month1.Expensesst * 10);
       // .attr("height", 100);
       .attr("height", 0)
