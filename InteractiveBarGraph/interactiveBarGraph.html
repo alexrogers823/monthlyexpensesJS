@@ -278,7 +278,7 @@
       // .attr("height", d => (d.month1.Expensesst > 100) ? d.month1.Expensesst/2 : d.month1.Expensesst * 10);
       // .attr("height", 100);
       .attr("height", (d, i) => heightScale(d.Cost))
-      .attr("fill", `rgb(${Math.random()*255}, 100, 90)`);
+      .attr("fill", (d, i) => `rgb(${11*i}, ${255-(11*i)}, ${150})`);
 
       otherRectangles.enter()
       .append("rect")
@@ -294,7 +294,7 @@
       .attr("fill-opacity", 0.1)
       .transition(t)
       .attr("fill-opacity", 1)
-      .attr("fill", `rgb(${Math.random()*255}, 100, 90)`)
+      .attr("fill", (d, i) => `rgb(${11*i}, ${255-(11*i)}, ${150})`)
       // .attr("fill", "blue")
       .attr("height", (d, i) => heightScale(d.Cost));
     }
