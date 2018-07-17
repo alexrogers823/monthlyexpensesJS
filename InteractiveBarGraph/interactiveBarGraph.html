@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Interactive Bar Graph</title>
   <style>
-    .bar {
+    /* .bar {
       fill: green;
-    }
+    } */
 
     .bar:hover {
       fill: blue;
@@ -27,9 +27,9 @@
       border: 3px solid blue;
     }
 
-    svg rect {
+    /* svg rect {
       fill: red;
-    }
+    } */
   </style>
 </head>
 <body>
@@ -277,7 +277,8 @@
       .attr("width", barWidth)
       // .attr("height", d => (d.month1.Expensesst > 100) ? d.month1.Expensesst/2 : d.month1.Expensesst * 10);
       // .attr("height", 100);
-      .attr("height", (d, i) => heightScale(d.Cost));
+      .attr("height", (d, i) => heightScale(d.Cost))
+      .attr("fill", `rgb(${Math.random()*255}, 100, 90)`);
 
       otherRectangles.enter()
       .append("rect")
@@ -293,6 +294,8 @@
       .attr("fill-opacity", 0.1)
       .transition(t)
       .attr("fill-opacity", 1)
+      .attr("fill", `rgb(${Math.random()*255}, 100, 90)`)
+      // .attr("fill", "blue")
       .attr("height", (d, i) => heightScale(d.Cost));
     }
 
