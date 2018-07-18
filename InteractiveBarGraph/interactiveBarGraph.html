@@ -256,6 +256,13 @@
       return newDataSet;
     }
 
+    // function to set colors for bars
+    function colorBars(ht, i) {
+      let red = 0, green = 255-(11*i), blue = 255-(11*i);
+      let color = (ht <= 510) ? ht/2 : 255;
+      return `rgb(${color}, ${color-green}, ${color-blue})`;
+    }
+
 
     // Set function to update with new data
     function update(data, number) {
@@ -272,20 +279,20 @@
       otherRectangles.transition(t)
       .attr("x", (d, i) => i * xDistance)
       // .attr("y", d => (d.Cost > 100) ? height - marginSpace - (d.Cost/2) : height - marginSpace - (d.Cost * 10))
-      .attr("y", (d, i) => height - heightScale(d.Cost))
+      .attr("y", (d, i) => height - heightScale(d.Cost) + 1)
       // .attr("y", 400)
       .attr("width", barWidth)
       // .attr("height", d => (d.month1.Expensesst > 100) ? d.month1.Expensesst/2 : d.month1.Expensesst * 10);
       // .attr("height", 100);
-      .attr("height", (d, i) => heightScale(d.Cost))
-      .attr("fill", (d, i) => `rgb(${11*i}, ${255-(11*i)}, ${150})`);
+      .attr("height", (d, i) => heightScale(d.Cost) + 1)
+      .attr("fill", (d, i) => colorBars(d.Cost, i));
 
       otherRectangles.enter()
       .append("rect")
       .attr("class", "bar")
       .attr("x", (d, i) => i * xDistance)
       // .attr("y", d => (d.month1.Expensesst > 100) ? height - marginSpace - (d.month1.Expensesst/2) : height - marginSpace - (d.month1.Expensesst * 10))
-      .attr("y", (d, i) => height - heightScale(d.Cost))
+      .attr("y", (d, i) => height - heightScale(d.Cost) + 1)
       // .attr("y", 400)
       .attr("width", barWidth)
       // .attr("height", d => (d.month1.Expensesst > 100) ? d.month1.Expensesst/2 : d.month1.Expensesst * 10);
@@ -294,9 +301,9 @@
       .attr("fill-opacity", 0.1)
       .transition(t)
       .attr("fill-opacity", 1)
-      .attr("fill", (d, i) => `rgb(${11*i}, ${255-(11*i)}, ${150})`)
+      .attr("fill", (d, i) => colorBars(d.Cost, i))
       // .attr("fill", "blue")
-      .attr("height", (d, i) => heightScale(d.Cost));
+      .attr("height", (d, i) => heightScale(d.Cost) + 1);
     }
 
     // Changing the data each second
