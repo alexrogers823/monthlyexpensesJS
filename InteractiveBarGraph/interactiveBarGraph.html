@@ -271,18 +271,18 @@
 
     // Scales and Axis (eventually use band scale for y-axis)
     const width = 1100;
-    const height = 550;
+    const height = 500;
     const categoryLength = Object.keys(categoryLabels).length;
     const moveX = 40;
     const xDistance = (width - moveX)/categoryLength;
     const barWidth = 30;
 
     const heightScale = d3.scale.linear()
-      .domain([0, 800])
+      .domain([0, 1000])
       .range([0, height]);
 
     const reverseHeightScale = d3.scale.linear()
-      .domain([0, 800])
+      .domain([0, 1000])
       .range([height, 0]);
 
     const categoryScale = d3.scale.linear()
@@ -316,7 +316,7 @@
     // Without d3.json import
     const svgContainer = d3.select("body").append("svg")
     .attr("width", width)
-    .attr("height", height)
+    .attr("height", height+50)
     .append("g")
     .attr("transform", `translate(${moveX}, -10)`);
     // .call(axis);
@@ -418,7 +418,7 @@
       // .attr("y2", 200)
       // .attr("stroke-width", 2)
       .attr("stroke-dasharray", 3.2)
-      .attr("stroke", "black")
+      .attr("stroke", d => (d.Cost > d.Goal) ? "white" : "black")
       .attr("opacity", 0.4);
 
     }
@@ -457,8 +457,12 @@
 
     // Name of current month
     // svgContainer.append("g")
+    // .append("text")
     //   .attr("class", "title")
-    //
+    //   .text("January Expenses")
+    //   .attr("font-size", 32)
+    //   .attr("color", "black");
+
 
 
 
