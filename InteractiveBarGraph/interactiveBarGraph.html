@@ -23,7 +23,7 @@
     }
 
     svg {
-      background-color: #ededed;
+      background-color: #dddddd;
       /* background-color: rgb(225, 225, 225); */
       border: 3px solid blue;
     }
@@ -279,11 +279,11 @@
     const barWidth = 30;
 
     const heightScale = d3.scale.linear()
-      .domain([0, 1000])
+      .domain([0, 1050])
       .range([0, height]);
 
     const reverseHeightScale = d3.scale.linear()
-      .domain([0, 1000])
+      .domain([0, 1050])
       .range([height, 0]);
 
     const categoryScale = d3.scale.ordinal()
@@ -365,9 +365,22 @@
 
     // Set function to update with new data
     function update(data, number) {
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      // Set month title
+      const title = svgContainer.append("text")
+      .attr("x", (width/2))
+      .attr("y", 100)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("text-decoration", "underline")
+      .text(`${monthNames[number-1]} Expenses`);
+
+
       // Rectangles using data
-      let otherRectangles = svgContainer.selectAll(".bar")
+      const otherRectangles = svgContainer.selectAll(".bar")
       .data(processData(data, number));
+
 
       // otherRectangles.exit().transition(t)
       // .attr("fill-opacity", 0.1)
@@ -411,7 +424,7 @@
       // Creating goal lines
       otherRectangles.enter()
       .append("line")
-      .attr("class", "bar")
+      .attr("class", "goalLine")
       .attr("x1", (d, i) => i * xDistance)
       .attr("y1", d => (d.Goal) ? height - heightScale(d.Goal) : null)
       // .attr("y1", 200)
