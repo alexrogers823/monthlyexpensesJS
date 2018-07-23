@@ -23,7 +23,8 @@
     }
 
     svg {
-      background-color: #cdcdcd;
+      background-color: #ededed;
+      /* background-color: rgb(225, 225, 225); */
       border: 3px solid blue;
     }
 
@@ -285,9 +286,9 @@
       .domain([0, 1000])
       .range([height, 0]);
 
-    const categoryScale = d3.scale.linear()
-      .domain([0, width])
-      .range([0, width]);
+    const categoryScale = d3.scale.ordinal()
+      .domain(d3.range(categoryLength))
+      .rangeRoundBands([moveX, width]);
 
     const axis = d3.svg.axis()
       .ticks(20)
@@ -299,6 +300,7 @@
     const categoryAxis = d3.svg.axis()
       .ticks(categoryLength)
       .tickSize(2)
+      .tickPadding(45)
       .scale(categoryScale)
       .tickFormat((d, i) => {
         categoryNames = [];
@@ -449,11 +451,11 @@
     // Calling the categorical axis
     svgContainer.append("g")
       .attr("class", "categoryAxis")
-      .attr("transform", `translate(-16, ${height+5})`)
+      .attr("transform", `translate(0, ${height+5})`)
       .call(categoryAxis)
       .selectAll("text")
       // .attr("transform", "translate(45, 0)")
-      .attr("transform", "rotate(45)");
+      .attr("transform", "rotate(60)");
 
     // Name of current month
     // svgContainer.append("g")
