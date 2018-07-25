@@ -134,30 +134,30 @@
     // const dataset = data[0].month1;
 
 
-    // d3.json("./month_expenses_2016.json", data => {
-    //   const svgContainer = d3.select("body").append("svg")
-    //   .attr("width", 1000)
-    //   .attr("height", 550)
-    //   // .append("g");
-    //
-    //   const marginSpace = 10;
-    //
-    //   // Rectangles using data
-    //   const otherRectangles = svgContainer.selectAll(".bar")
-    //   .data(data)
-    //   .enter()
-    //   .append("rect")
-    //   .attr("class", "bar")
-    //   .attr("x", (d, i) => (i * 60) + 130)
-    //   .attr("y", d => 550 - marginSpace - (d.month1.Expenses[0].Cost * 10))
-    //   // .attr("y", 400)
-    //   .attr("width", 50)
-    //   .attr("height", d => d.month1.Expenses[0].Cost * 10);
-    //   // .attr("height", 100);
-    // });
+    d3.json("./month_expenses_2016.json", data => {
+      const svgContainer = d3.select("body").append("svg")
+      .attr("width", 1000)
+      .attr("height", 550)
+      // .append("g");
+
+      const marginSpace = 10;
+
+      // Rectangles using data
+      const otherRectangles = svgContainer.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (d, i) => (i * 60) + 130)
+      .attr("y", d => 550 - marginSpace - (d.month1.Expenses[0].Cost * 10))
+      // .attr("y", 400)
+      .attr("width", 50)
+      .attr("height", d => d.month1.Expenses[0].Cost * 10);
+      // .attr("height", 100);
+    });
 
     // Category labels. Find a way to add directly from month expenses data
-    const categoryLabels = {
+    /*const categoryLabels = {
       Rent: {
         labels: ["Rent"],
         goal: 800,
@@ -476,7 +476,7 @@
     //   .attr("class", "title")
     //   .text("January Expenses")
     //   .attr("font-size", 32)
-    //   .attr("color", "black");
+    //   .attr("color", "black");*/
 
 
 
