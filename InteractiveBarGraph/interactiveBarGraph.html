@@ -144,7 +144,7 @@
 
       // Rectangles using data
       const otherRectangles = svgContainer.selectAll(".bar")
-      .data(data)
+      .data([data])
       .enter()
       .append("rect")
       .attr("class", "bar")
@@ -368,13 +368,13 @@
       const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
       // Set month title
-      const title = svgContainer.append("text")
-      .attr("x", (width/2))
-      .attr("y", 100)
-      .attr("text-anchor", "middle")
-      .style("font-size", "16px")
-      .style("text-decoration", "underline")
-      .text(`${monthNames[number-1]} Expenses`);
+      // const title = svgContainer.append("text")
+      // .attr("x", (width/2))
+      // .attr("y", 100)
+      // .attr("text-anchor", "middle")
+      // .style("font-size", "16px")
+      // .style("text-decoration", "underline")
+      // .text(`${monthNames[number-1]} Expenses`);
 
 
       // Rectangles using data
@@ -442,7 +442,7 @@
     let flag = true, numeric = 1;
     setInterval(() => {
       dataset = flag ? data1 : data2;
-      // dataset = data1;
+      // dataset = data;
       update(dataset, numeric);
       flag = !flag;
       numeric++;
