@@ -134,30 +134,30 @@
     // const dataset = data[0].month1;
 
 
-    d3.json("./month_expenses_2016.json", data => {
-      const svgContainer = d3.select("body").append("svg")
-      .attr("width", 1000)
-      .attr("height", 550)
-      // .append("g");
-
-      const marginSpace = 10;
-
-      // Rectangles using data
-      const otherRectangles = svgContainer.selectAll(".bar")
-      .data([data])
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", (d, i) => (i * 60) + 130)
-      .attr("y", d => 550 - marginSpace - (d.month1.Expenses[0].Cost * 10))
-      // .attr("y", 400)
-      .attr("width", 50)
-      .attr("height", d => d.month1.Expenses[0].Cost * 10);
-      // .attr("height", 100);
-    });
+    // d3.json("./month_expenses_2016.json", data => {
+    //   const svgContainer = d3.select("body").append("svg")
+    //   .attr("width", 1000)
+    //   .attr("height", 550)
+    //   // .append("g");
+    //
+    //   const marginSpace = 10;
+    //
+    //   // Rectangles using data
+    //   const otherRectangles = svgContainer.selectAll(".bar")
+    //   .data(data)
+    //   .enter()
+    //   .append("rect")
+    //   .attr("class", "bar")
+    //   .attr("x", (d, i) => (i * 60) + 130)
+    //   .attr("y", d => 550 - marginSpace - (d.month1.Expenses[0].Cost * 10))
+    //   // .attr("y", 400)
+    //   .attr("width", 50)
+    //   .attr("height", d => d.month1.Expenses[0].Cost * 10);
+    //   // .attr("height", 100);
+    // });
 
     // Category labels. Find a way to add directly from month expenses data
-    /*const categoryLabels = {
+    const categoryLabels = {
       Rent: {
         labels: ["Rent"],
         goal: 800,
@@ -325,6 +325,24 @@
 
     const marginSpace = 10;
 
+    d3.json('./month_expenses_2016.json', (error, dataset) => {
+      console.log(dataset);
+      // Changing the data each second
+      let flag = true, numeric = 1;
+      setInterval(() => {
+        // dataset = flag ? data1 : data2;
+        update(dataset, numeric);
+        flag = !flag;
+        numeric++;
+        if (numeric > 2) {
+          numeric = 1;
+        }
+      }, 1500);
+
+      // update(data1, 1);
+
+    });
+
     function processData(data, number) {
       let obj = data[0][`month${number}`].Expenses;
       let newDataSet = [];
@@ -438,20 +456,7 @@
 
     }
 
-    // Changing the data each second
-    let flag = true, numeric = 1;
-    setInterval(() => {
-      dataset = flag ? data1 : data2;
-      // dataset = data;
-      update(dataset, numeric);
-      flag = !flag;
-      numeric++;
-      if (numeric > 2) {
-        numeric = 1;
-      }
-    }, 1500);
 
-    update(data1, 1);
 
 
     // Calling the axis
@@ -476,7 +481,7 @@
     //   .attr("class", "title")
     //   .text("January Expenses")
     //   .attr("font-size", 32)
-    //   .attr("color", "black");*/
+    //   .attr("color", "black");
 
 
 
