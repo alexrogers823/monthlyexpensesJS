@@ -20,6 +20,7 @@
 
     .categoryAxis {
       font-size: 10px;
+      /* display: none; */
     }
 
     svg {
@@ -288,7 +289,7 @@
 
     const categoryScale = d3.scale.ordinal()
       .domain(d3.range(categoryLength))
-      .rangeRoundBands([moveX, width]);
+      .rangeRoundBands([0, width], .1);
 
     const axis = d3.svg.axis()
       .ticks(20)
@@ -474,6 +475,7 @@
       .selectAll("text")
       // .attr("transform", "translate(45, 0)")
       .attr("transform", "rotate(60)");
+      // .attr("dy", "0.71em");
 
     // Name of current month
     // svgContainer.append("g")
